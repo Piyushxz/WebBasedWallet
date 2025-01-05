@@ -10,6 +10,7 @@ import { Button } from "./ui/Button";
 import { WalletCard } from "./ui/WalletCard";
 import bs58 from "bs58"
 import { Wallet,HDNodeWallet } from "ethers";
+import { DeleteModal } from "./ui/PopoverModal";
 
 interface KeyProps{
     privateKey:any,
@@ -118,18 +119,22 @@ export const WalletGenerator = () => {
                         </div>
                     </div>
 
-                    <div className="w-full  mt-8">
-                        <div className="flex justify-between">
-                        <h1 className="tracking-tighter text-3xl md:text-5xl font-black text-white font-black">
-                        {
-                        //@ts-ignore
-                        `Your ${state} Wallet,` 
-                        }
-                        </h1>
-                        <Button onClick={handleAddWallet}
-                        text="Add Wallet" variant="primary" size="sm" />
-
+                    <div className="w-full  mt-8 ">
+                        <div className="flex justify-between gap-4">
+                            <h1 className="tracking-tighter text-3xl md:text-5xl font-black text-white font-black">
+                            {
+                            //@ts-ignore
+                            `Your ${state} Wallet,` 
+                            }
+                            </h1>
+                        <div className="flex gap-2">
+                            <Button onClick={handleAddWallet}
+                            text="Add Wallet" variant="primary" size="sm" />
+                            <DeleteModal onClick={()=>setKeys([])}/>
                         </div>
+                        
+                        </div>
+
 
 
                     </div>

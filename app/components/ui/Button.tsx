@@ -1,5 +1,5 @@
 interface buttonProps{
-    variant:"primary"|"secondary",
+    variant:"primary"|"secondary"|"delete",
     size :"sm"|"md"|"lg",
     text:string,
     onClick?:any
@@ -8,7 +8,8 @@ interface buttonProps{
 
 const variantStyles={
     primary:" bg-white text-black text-medium rounded-lg hover:opacity-70 transition-all ease-in-out ",
-    secondary:"bg-black text-white text-medium rounded-lg hover:opacity-70 transition-all ease-in-out duration-200 "
+    secondary:"bg-black text-white text-medium rounded-lg hover:opacity-70 transition-all ease-in-out duration-200 ",
+    delete:"bg-red-500 text-white text-medium rounded-lg hover:opacity-70 transition-all ease-in-out duration-200 "
 }
 
 const sizeStyles = {
