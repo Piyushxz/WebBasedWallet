@@ -1,7 +1,8 @@
 interface buttonProps{
     variant:"primary"|"secondary",
     size :"sm"|"md"|"lg",
-    text:string
+    text:string,
+    onClick:any
 
 }
 
@@ -13,11 +14,11 @@ const variantStyles={
 const sizeStyles = {
     sm:" px-2 py-2",
     md:" px-6 py-4",
-    lg:" px-6 py-6"
+    lg:" px-6 py-4"
 }
 export const Button = (props:buttonProps)=>{
     return(
-        <button className={`${variantStyles[props.variant]}  ${sizeStyles[props.size]}`}>
+        <button onClick={props.onClick} className={`${variantStyles[props.variant]}  ${sizeStyles[props.size]}`}>
             {props.text}
         </button>
     )
