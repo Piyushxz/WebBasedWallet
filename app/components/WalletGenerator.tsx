@@ -7,6 +7,8 @@ import { derivePath } from "ed25519-hd-key";
 import { Keypair } from "@solana/web3.js";
 import nacl from "tweetnacl"
 import { Button } from "./ui/Button";
+import { WalletCard } from "./ui/WalletCard";
+import bs58 from "bs58"
 
 interface KeyProps{
     privateKey:any,
@@ -19,7 +21,7 @@ export const WalletGenerator = () => {
 
     const [showMnemonic,setShowMnemonic] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [Keys, setKeys] = useState<KeyProps[]>([{index:currentIndex,publicKey:"faf",privateKey:"edf"}]);
+    const [Keys, setKeys] = useState<KeyProps[]>([]);
 
 
     //@ts-ignore
@@ -34,7 +36,7 @@ export const WalletGenerator = () => {
         const {secretKey} = nacl.sign.keyPair.fromSeed(derivedSeed);
         const publicKey = Keypair.fromSecretKey(secretKey).publicKey.toBase58();
         setCurrentIndex(currentIndex + 1);
-        setKeys([...Keys,{index:currentIndex,publicKey: publicKey,privateKey:secretKey}])
+        setKeys([...Keys,{index:currentIndex,publicKey: publicKey,privateKey:bs58.encode(secretKey)}])
     }
     useEffect(() => {
         let mn = generateMnemonic();
@@ -49,7 +51,8 @@ export const WalletGenerator = () => {
 
     console.log(Keys)
     return (
-        <motion.div
+        <div className="">
+                    <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -107,26 +110,28 @@ export const WalletGenerator = () => {
 
 
                     </div>
-                    <div className="border border-white border-opacity-30 w-full flex flex-col mt-8 h-60">
-                        <div className="flex justify-between p-4 flex ">
-                            <h1 className="tracking-tighter text-2xl md:text-4xl font-black text-white">Wallet {currentIndex}</h1>
-                        </div>
-                        <div className="flex flex-col w-full bg-[#191919] h-[100vh]">
-                            <div className="p-2 flex flex-col">
-                                <h1 className="tracking-tighter text-lg md:text-xl font-black text-white">Public Key</h1>
-                                <h1 className="tracking-tighter text-md md:text-lg font-black text-white opacity-40 hover:opacity-100 cursor-pointer">Public Key</h1>
+                    <div className="w-full flex flex-col">
+                        {
+                            Keys.map(data=>
+                                <motion.div  key={data.index}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{
+                                duration: 0.2,
+                                
+                                ease: "easeInOut",
+                                }}>
+                                    <WalletCard privateKey={data.privateKey} publicKey={data.publicKey} index={data.index}/>
+                                </motion.div>
+                            )
+                        }
 
-                            </div>
-                            <div className="p-2 flex flex-col">
-                                <h1 className="tracking-tighter text-lg md:text-xl font-black text-white">Private Key</h1>
-                                <h1 className="tracking-tighter text-md md:text-lg font-black text-white opacity-40 hover:opacity-100 cursor-pointer">Public Key</h1>
-
-                            </div>
-                        </div>
                     </div>
                 </div>
 
 
             </motion.div>
+        </div>
+
     );
 };

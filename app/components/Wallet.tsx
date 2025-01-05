@@ -32,7 +32,7 @@ export const Wallet =()=>{
           {
              //@ts-ignore
              state?.isWalletSelected && state?.chainType ==="Solana" ?
-             <SolanaWallet/>
+             (<div>             <SolanaWallet/></div>)
              :
              //@ts-ignore
              state?.isWalletSelected && state?.chainType === "Etherium"?
