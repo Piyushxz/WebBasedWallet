@@ -43,7 +43,7 @@ export const SolanaWallet = ()=>{
                      <h1 className="tracking-tighter text-xl md:text-2xl font-black text-white">This phrase is the ONLY to recover your wallet.Do NOT share it with Anyone!</h1>
     
                  </div>
-                 <div className="flex justify-center mt-8">
+                 <div className="flex  mt-8">
                     <Button text="Generate Wallet" variant='primary' size="lg" onClick={()=>{dispatch(handleIsWalletGenerated(""))}}/>
                  </div>
                 </div>

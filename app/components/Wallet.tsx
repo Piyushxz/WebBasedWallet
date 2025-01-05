@@ -6,6 +6,8 @@ import { useDispatch,useSelector } from "react-redux";
 import { handlewalletSelected } from "../features/walletSlice";
 import { SolanaWallet } from "./SolanaWallet";
 import { EtheriumWallet } from "./EtheriumWallet";
+import { useToast } from "@/hooks/use-toast"
+import { title } from "process";
 
 
 export const Wallet =()=>{
@@ -40,7 +42,7 @@ export const Wallet =()=>{
              :
              <div className="w-[80vw]">
              <div className="flex flex-col gap-4">
-                 <h1 className="tracking-tighter text-4xl md:text-6xl font-black text-white">xvWallo is a Web Based Wallet.</h1>
+                 <h1 className="tracking-tighter text-4xl md:text-6xl font-black text-white">xVault is a Web Based Wallet.</h1>
  
                  <h1 className="tracking-tighter text-xl md:text-2xl font-black text-white ">Create a wallet for Etherium or Solana Blockchain,</h1>
              </div>

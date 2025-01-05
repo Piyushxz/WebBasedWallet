@@ -2,7 +2,7 @@ interface buttonProps{
     variant:"primary"|"secondary",
     size :"sm"|"md"|"lg",
     text:string,
-    onClick:any
+    onClick?:any
 
 }
 

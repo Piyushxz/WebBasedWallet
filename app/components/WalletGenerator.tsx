@@ -9,6 +9,7 @@ import nacl from "tweetnacl"
 import { Button } from "./ui/Button";
 import { WalletCard } from "./ui/WalletCard";
 import bs58 from "bs58"
+import { Wallet,HDNodeWallet } from "ethers";
 
 interface KeyProps{
     privateKey:any,
@@ -20,7 +21,7 @@ export const WalletGenerator = () => {
     const [mnemonic, setMnemonic] = useState<string[]>([]);
 
     const [showMnemonic,setShowMnemonic] = useState(false)
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(1);
     const [Keys, setKeys] = useState<KeyProps[]>([]);
 
 
@@ -38,7 +39,19 @@ export const WalletGenerator = () => {
         setCurrentIndex(currentIndex + 1);
         setKeys([...Keys,{index:currentIndex,publicKey: publicKey,privateKey:bs58.encode(secretKey)}])
     }
-    const handleAddSolanaWallet = ()=>{
+    const generateEtheriumPair = async ()=>{
+        const seed = await mnemonicToSeed(mnemonic.join(" "));
+        const derivationPath = `m/44'/60'/${currentIndex}'/0'`;
+         const hdNode =  HDNodeWallet.fromSeed(seed);
+        const child = hdNode.derivePath(derivationPath);
+        const privateKey = child.privateKey;
+        const wallet = new Wallet(privateKey);
+        setCurrentIndex(currentIndex + 1);
+        setKeys([...Keys,{index:currentIndex,publicKey:wallet.address,privateKey:privateKey}])
+    }
+    const handleAddWallet = ()=>{
+        state === "Etherium"?
+        generateEtheriumPair() :
         generateSolanaPair()
     }
 
@@ -53,10 +66,12 @@ export const WalletGenerator = () => {
         }
 
         setMnemonic(mn.split(" ")); 
-        generateSolanaPair()
+        if (Keys.length === 0) {
+            state === "Etherium" ? generateEtheriumPair() : generateSolanaPair();
+        }
+
     }, []);
 
-    console.log(Keys)
     return (
         <div className="h-screen">
                     <motion.div
@@ -111,7 +126,7 @@ export const WalletGenerator = () => {
                         `Your ${state} Wallet,` 
                         }
                         </h1>
-                        <Button onClick={handleAddSolanaWallet}
+                        <Button onClick={handleAddWallet}
                         text="Add Wallet" variant="primary" size="sm" />
 
                         </div>
