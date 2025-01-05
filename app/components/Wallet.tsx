@@ -19,7 +19,7 @@ export const Wallet =()=>{
     },[])
     return(
         <>
-                <div className="w-[100vw] flex justify-center mt-20">
+                <div className="w-[100vw] flex justify-center mt-20 bg-black">
             {
                 pageLoaded &&
                 <motion.div initial={{ opacity: 0, y: -20 }}
@@ -32,7 +32,7 @@ export const Wallet =()=>{
           {
              //@ts-ignore
              state?.isWalletSelected && state?.chainType ==="Solana" ?
-             (<div>             <SolanaWallet/></div>)
+             (<div className="h-screen">             <SolanaWallet/></div>)
              :
              //@ts-ignore
              state?.isWalletSelected && state?.chainType === "Etherium"?

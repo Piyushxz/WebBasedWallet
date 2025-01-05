@@ -38,6 +38,13 @@ export const WalletGenerator = () => {
         setCurrentIndex(currentIndex + 1);
         setKeys([...Keys,{index:currentIndex,publicKey: publicKey,privateKey:bs58.encode(secretKey)}])
     }
+    const handleAddSolanaWallet = ()=>{
+        generateSolanaPair()
+    }
+
+    const handleDeletePair =(index:string)=>{
+        setKeys((prev)=>prev.filter(keys=>keys.index !== index))
+    }
     useEffect(() => {
         let mn = generateMnemonic();
 
@@ -51,7 +58,7 @@ export const WalletGenerator = () => {
 
     console.log(Keys)
     return (
-        <div className="">
+        <div className="h-screen">
                     <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -104,13 +111,15 @@ export const WalletGenerator = () => {
                         `Your ${state} Wallet,` 
                         }
                         </h1>
-                        <Button text="Add Wallet" variant="primary" size="sm" onClick={()=>{}}/>
+                        <Button onClick={handleAddSolanaWallet}
+                        text="Add Wallet" variant="primary" size="sm" />
 
                         </div>
 
 
                     </div>
-                    <div className="w-full flex flex-col">
+                    
+                    <div className="w-full flex flex-col ">
                         {
                             Keys.map(data=>
                                 <motion.div  key={data.index}
@@ -121,7 +130,8 @@ export const WalletGenerator = () => {
                                 
                                 ease: "easeInOut",
                                 }}>
-                                    <WalletCard privateKey={data.privateKey} publicKey={data.publicKey} index={data.index}/>
+                                    <WalletCard handleDeletePair={()=>handleDeletePair(data.index)}
+                                     privateKey={data.privateKey} publicKey={data.publicKey} index={data.index}/>
                                 </motion.div>
                             )
                         }

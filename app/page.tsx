@@ -8,7 +8,9 @@ export default function Home() {
     <Provider store={store}>
           <div className=" bg-black h-screen  w-screen flex flex-col">
             <Navbar/>
-            <Wallet/>
+          <div className="h-screen ">           
+             <Wallet/>
+          </div>
           </div>
     </Provider>
 

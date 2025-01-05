@@ -22,8 +22,9 @@ export const SolanaWallet = ()=>{
         <>
         {
             isWalletGenerated ?
-
-                 <WalletGenerator/>
+                <div className="h-screen w-screen">                 
+                    <WalletGenerator/>
+                </div>
 
            
             :
