@@ -2,6 +2,7 @@ import VisibleIcon from "./visibleIcon"
 import NotVisibleIcon from "./NotVisibleIcon"
 import { useState } from "react"
 import { DeleteIcon } from "./DeleteIcon";
+import {toast} from "sonner"
 interface cardProps{
     index:string | number,
     privateKey:string,
@@ -24,10 +25,12 @@ export const WalletCard = (props: cardProps) => {
             <div className="flex flex-col w-full bg-[#191919] h-[100vh]">
                 <div className="p-2 flex flex-col">
                     <h1 className="tracking-tighter text-lg md:text-xl font-black text-white">Public Key</h1>
-                    <h1
+                    <h1 onClick={()=>{toast.success("Public Key Copied to Clipboard");
+                        navigator.clipboard.writeText(props.publicKey)
+                    }}
                         className="tracking-tighter text-md md:text-lg font-black text-white opacity-40 hover:opacity-100 cursor-pointer truncate overflow-hidden"
                         style={{ whiteSpace: "nowrap", maxWidth: "100%" }}
-                        title={props.publicKey} // Tooltip to show the full key on hover
+                        title={props.publicKey} 
                     >
                         {props.publicKey}
                     </h1>
@@ -35,7 +38,9 @@ export const WalletCard = (props: cardProps) => {
                 <div className="p-2 flex flex-col">
                     <h1 className="tracking-tighter text-lg md:text-xl font-black text-white">Private Key</h1>
                     <div className="flex justify-between">
-                        <h1
+                        <h1  onClick={()=>{toast.success("Private Key Copied to Clipboard");
+                        navigator.clipboard.writeText(props.privateKey)
+                    }}
                             className="tracking-tighter text-md md:text-lg font-black text-white opacity-40 hover:opacity-100 cursor-pointer truncate overflow-hidden"
                             style={{ whiteSpace: "nowrap", maxWidth: "100%" }}
                             title={isPrivateKeyVisible ? props.privateKey : "********"} // Tooltip for private key

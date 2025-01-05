@@ -11,6 +11,7 @@ import { WalletCard } from "./ui/WalletCard";
 import bs58 from "bs58"
 import { Wallet,HDNodeWallet } from "ethers";
 import { DeleteModal } from "./ui/PopoverModal";
+import {toast} from "sonner"
 
 interface KeyProps{
     privateKey:any,
@@ -28,7 +29,6 @@ export const WalletGenerator = () => {
 
     //@ts-ignore
     const state = useSelector(state=>state.chainType)
-    console.log(state)
 
 
     const generateSolanaPair = ()=>{
@@ -53,7 +53,9 @@ export const WalletGenerator = () => {
     const handleAddWallet = ()=>{
         state === "Etherium"?
         generateEtheriumPair() :
-        generateSolanaPair()
+        generateSolanaPair();
+
+        toast.success("Wallet has been created.")
     }
 
     const handleDeletePair =(index:string)=>{
@@ -70,6 +72,8 @@ export const WalletGenerator = () => {
         if (Keys.length === 0) {
             state === "Etherium" ? generateEtheriumPair() : generateSolanaPair();
         }
+        toast.success("Secret Phrase Generated")
+
 
     }, []);
 
@@ -86,20 +90,22 @@ export const WalletGenerator = () => {
         >
             <div className="w-[80vw]   rounded-lg">
                 <div className="flex flex-col gap-4">
-                    <div className="border border-white border-opacity-30 w-full flex flex-col p-4 min-h-20">
+                    <div className="border border-white border-opacity-30 w-full flex flex-col ">
                         <div className="flex justify-between items-center">
-                        <div className="tracking-tighter text-2xl md:text-4xl font-black text-white flex items-center">
+                        <div className="tracking-tighter text-2xl md:text-4xl font-black text-white flex items-center p-4 mt-2">
                             Secret Phrase
                         </div>
                         <div onClick={()=>setShowMnemonic(val=>!val)}
-                         className="flex justify-between items-center p-2 hover:bg-[#191919] rounded-lg ease-in-out cursor-pointer">
+                         className="flex justify-between items-center p-4 mt-2 mr-2 hover:bg-[#191919] rounded-lg ease-in-out cursor-pointer">
                             <DownArrow />
                         </div>
+                        
                         </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4 px-2 py-2">
                         {showMnemonic &&
                             mnemonic.map((phrase, index) => (
+                                
                             <motion.div
                                 key={index}
                                 initial={{ opacity: 0, y: -10 }}
@@ -112,10 +118,15 @@ export const WalletGenerator = () => {
                                 className="bg-[#2d2d2d] hover:bg-opacity-70 ease-in-out transition-all text-white text-xl font-medium p-2 rounded-md"
                             >
                                 {phrase}
+                                
                             </motion.div>
-                            ))}
-                        </div>
+                            
+                            ))
 
+
+                            }
+
+                        </div>
                         </div>
                     </div>
 
@@ -130,7 +141,12 @@ export const WalletGenerator = () => {
                         <div className="flex gap-2">
                             <Button onClick={handleAddWallet}
                             text="Add Wallet" variant="primary" size="sm" />
-                            <DeleteModal onClick={()=>setKeys([])}/>
+                            <DeleteModal variant="all" onClick={()=>{
+                                    setKeys([]);
+                                    toast.info("All Wallets Deleted.")
+                            }
+
+                            }/>
                         </div>
                         
                         </div>

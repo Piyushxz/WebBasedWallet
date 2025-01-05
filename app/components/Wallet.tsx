@@ -6,9 +6,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { handlewalletSelected } from "../features/walletSlice";
 import { SolanaWallet } from "./SolanaWallet";
 import { EtheriumWallet } from "./EtheriumWallet";
-import { useToast } from "@/hooks/use-toast"
-import { title } from "process";
-
+import {toast} from "sonner"
 
 export const Wallet =()=>{
     const [pageLoaded,setPageLoaded]= useState(false)
@@ -48,12 +46,25 @@ export const Wallet =()=>{
              </div>
  
              <div className="flex gap-2 mt-4">
-                 <Button onClick={()=>dispatch(handlewalletSelected("Etherium"))}
-                 text="Etherium" variant="primary" size="md"/>
-                 <Button onClick={()=>dispatch(handlewalletSelected("Solana"))}
-                 text="Solana" variant="primary" size="md"/>
- 
-             </div>
+                 <Button
+                    onClick={() => {
+                    dispatch(handlewalletSelected("Etherium"));
+                    toast.success('Etherium Wallet Selected');
+                    }}
+                    text="Etherium"
+                    variant="primary"
+                    size="md"
+                />
+                <Button
+                    onClick={() => {
+                    dispatch(handlewalletSelected("Solana"));
+                    toast.success('Solana wallet Selected');
+                    }}
+                    text="Solana"
+                    variant="primary"
+                    size="md"
+                />
+                </div>
      </div>
  
           }

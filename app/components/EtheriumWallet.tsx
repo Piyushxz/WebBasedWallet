@@ -17,7 +17,6 @@ export const EtheriumWallet = ()=>{
     const dispatch = useDispatch()
     //@ts-ignore
     const isWalletGenerated = useSelector(state=>state.isWalletGenerated)
-    console.log(isWalletGenerated)
     return(
         <>
         {

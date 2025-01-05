@@ -17,7 +17,6 @@ export const SolanaWallet = ()=>{
     const dispatch = useDispatch()
     //@ts-ignore
     const isWalletGenerated = useSelector(state=>state.isWalletGenerated)
-    console.log(isWalletGenerated)
     return(
         <>
         {
