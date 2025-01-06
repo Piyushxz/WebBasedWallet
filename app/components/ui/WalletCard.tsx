@@ -1,14 +1,13 @@
 import VisibleIcon from "./visibleIcon"
 import NotVisibleIcon from "./NotVisibleIcon"
 import { useState } from "react"
-import { DeleteIcon } from "./DeleteIcon";
 import {DeleteModal} from "./PopoverModal"
 import {toast} from "sonner"
 interface cardProps{
     index:string | number,
     privateKey:string,
     publicKey:string,
-    handleDeletePair:any
+    handleDeletePair:()=>void
     
 }
 

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 
 interface DeleteModalProps {
-  onClick: () => void; 
+  onClick: (id?:string) => void; 
   variant:"all"|"single"
 }
 

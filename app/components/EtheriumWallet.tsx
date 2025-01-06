@@ -4,6 +4,7 @@ import {handleIsWalletGenerated} from "../features/walletSlice"
 import { useEffect, useState } from "react"
 import {motion} from "motion/react"
 import { WalletGenerator } from "./WalletGenerator"
+import { RootState } from "../store/store"
 
 export const EtheriumWallet = ()=>{
     const [isMounted,setIsMounted] = useState(false)
@@ -15,8 +16,7 @@ export const EtheriumWallet = ()=>{
     },[])
 
     const dispatch = useDispatch()
-    //@ts-ignore
-    const isWalletGenerated = useSelector(state=>state.isWalletGenerated)
+    const isWalletGenerated = useSelector((state:RootState)=>state.wallet.isWalletGenerated)
     return(
         <>
         {
@@ -43,7 +43,7 @@ export const EtheriumWallet = ()=>{
     
                  </div>
                  <div className="flex  mt-8">
-                    <Button text="Generate Wallet" variant='primary' size="lg" onClick={()=>{dispatch(handleIsWalletGenerated(""))}}/>
+                    <Button text="Generate Wallet" variant='primary' size="lg" onClick={()=>{dispatch(handleIsWalletGenerated())}}/>
                  </div>
                 </div>
                 </motion.div>

@@ -13,11 +13,12 @@ import { Wallet,HDNodeWallet } from "ethers";
 import { DeleteModal } from "./ui/PopoverModal";
 import {toast} from "sonner"
 import { CopyIcon } from "./ui/CopyIcon";
+import { RootState } from "../store/store";
 
 interface KeyProps{
-    privateKey:any,
-    publicKey:any,
-    index:any
+    privateKey:string,
+    publicKey:string ,
+    index:string 
 }
 
 export const WalletGenerator = () => {
@@ -28,8 +29,7 @@ export const WalletGenerator = () => {
     const [Keys, setKeys] = useState<KeyProps[]>([]);
 
 
-    //@ts-ignore
-    const state = useSelector(state=>state.chainType)
+    const state = useSelector((state:RootState)=>state.wallet.chainType)
 
     const handleCopyMnemonic = ()=>{
         
@@ -46,7 +46,7 @@ export const WalletGenerator = () => {
         const {secretKey} = nacl.sign.keyPair.fromSeed(derivedSeed);
         const publicKey = Keypair.fromSecretKey(secretKey).publicKey.toBase58();
         setCurrentIndex(currentIndex + 1);
-        setKeys([...Keys,{index:currentIndex,publicKey: publicKey,privateKey:bs58.encode(secretKey)}])
+        setKeys([...Keys,{index:JSON.stringify(currentIndex),publicKey: publicKey,privateKey:bs58.encode(secretKey)}])
     }
     const generateEtheriumPair = async ()=>{
         const seed = await mnemonicToSeed(mnemonic.join(" "));
@@ -56,12 +56,16 @@ export const WalletGenerator = () => {
         const privateKey = child.privateKey;
         const wallet = new Wallet(privateKey);
         setCurrentIndex(currentIndex + 1);
-        setKeys([...Keys,{index:currentIndex,publicKey:wallet.address,privateKey:privateKey}])
+        setKeys([...Keys,{index:JSON.stringify(currentIndex),publicKey:wallet.address,privateKey:privateKey}])
     }
     const handleAddWallet = ()=>{
-        state === "Etherium"?
-        generateEtheriumPair() :
-        generateSolanaPair();
+        if(state === "Etherium"){
+            generateEtheriumPair() 
+        }
+        else{
+            generateSolanaPair();
+
+        }
 
         toast.success("Wallet has been created.")
     }
@@ -79,9 +83,14 @@ export const WalletGenerator = () => {
 
         setMnemonic(mn.split(" ")); 
         if (Keys.length === 0) {
-            state === "Etherium" ? generateEtheriumPair() : generateSolanaPair();
+            if(state === "Etherium"){
+                generateEtheriumPair();
+            }
+            else{
+                generateSolanaPair();
+            }
+            { toast.success("Secret Phrase Generated")}
         }
-        toast.success("Secret Phrase Generated")
 
 
     }, []);
@@ -150,7 +159,7 @@ export const WalletGenerator = () => {
                         <div className="flex justify-between gap-4">
                             <h1 className="tracking-tighter text-2xl md:text-5xl font-black text-white font-black">
                             {
-                            //@ts-ignore
+                            
                             `Your ${state} Wallet,` 
                             }
                             </h1>

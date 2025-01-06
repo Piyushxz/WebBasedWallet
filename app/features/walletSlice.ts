@@ -1,27 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
-const initialState = {
-    isWalletSelected:false,
-    chainType:null,
-    isWalletGenerated:false
+interface WalletState {
+  isWalletSelected: boolean;
+  chainType: string | null; 
+  isWalletGenerated: boolean;
 }
 
+const initialState: WalletState = {
+  isWalletSelected: false,
+  chainType: null,
+  isWalletGenerated: false,
+};
 
+// Create the slice
 export const walletSlice = createSlice({
-    name:'wallet',
-    initialState,
-    reducers:{
-        handlewalletSelected:(state,action)=>{
-            state.isWalletSelected=true;
-            state.chainType=action.payload
-        },
-        handleIsWalletGenerated:(state,action)=>{
-            state.isWalletGenerated = true;
-        }
-    }
-})
+  name: "wallet",
+  initialState,
+  reducers: {
+    handlewalletSelected: (state, action: PayloadAction<string | null>) => {
+      state.isWalletSelected = true;
+      state.chainType = action.payload;
+    },
+    handleIsWalletGenerated: (state) => {
+      state.isWalletGenerated = true;
+    },
+  },
+});
 
-
-export const {handlewalletSelected,handleIsWalletGenerated} = walletSlice.actions
-export default walletSlice.reducer
+export const { handlewalletSelected, handleIsWalletGenerated } = walletSlice.actions;
+export default walletSlice.reducer;

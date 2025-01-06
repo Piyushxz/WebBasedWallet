@@ -7,10 +7,10 @@ import { handlewalletSelected } from "../features/walletSlice";
 import { SolanaWallet } from "./SolanaWallet";
 import { EtheriumWallet } from "./EtheriumWallet";
 import {toast} from "sonner"
-
+import { RootState } from "../store/store";
 export const Wallet =()=>{
     const [pageLoaded,setPageLoaded]= useState(false)
-    const state = useSelector(state=>state)
+    const state = useSelector((state:RootState)=>state)
     const dispatch = useDispatch()
     useEffect(()=>{
         setPageLoaded(true)
@@ -30,12 +30,10 @@ export const Wallet =()=>{
                 }}>
 
           {
-             //@ts-ignore
-             state?.isWalletSelected && state?.chainType ==="Solana" ?
+             state.wallet.isWalletSelected && state.wallet.chainType ==="Solana" ?
              (<div className="h-screen">             <SolanaWallet/></div>)
              :
-             //@ts-ignore
-             state?.isWalletSelected && state?.chainType === "Etherium"?
+             state.wallet.isWalletSelected && state.wallet.chainType === "Etherium"?
              <EtheriumWallet/>
              :
              <div className="w-[80vw]">

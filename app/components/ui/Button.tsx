@@ -2,8 +2,7 @@ interface buttonProps{
     variant:"primary"|"secondary"|"delete",
     size :"sm"|"md"|"lg",
     text:string,
-    onClick?:any,
-    toast?:any
+    onClick?:()=>void,
 
 }
 
