@@ -7,7 +7,7 @@ import {Toaster} from "sonner"
 export default function Home() {
   return (
     <Provider store={store}>
-          <div className=" bg-black h-screen  w-screen flex flex-col">
+          <div className=" bg-black h-screen w-screen flex flex-col">
             <Toaster theme='dark'position="bottom-right"/>
             <Navbar/>
                    

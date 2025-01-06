@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import {motion} from "motion/react"
 import { WalletGenerator } from "./WalletGenerator"
 import { RootState } from "../store/store"
+import { Footer } from "./Footer"
 
 export const SolanaWallet = ()=>{
     const [isMounted,setIsMounted] = useState(false)
@@ -47,12 +48,19 @@ export const SolanaWallet = ()=>{
                     <Button text="Generate Wallet" variant='primary' size="lg" onClick={()=>{dispatch(handleIsWalletGenerated())}}/>
                  </div>
                 </div>
+
+                <div className="mt-80">
+                <Footer/>
+
+            </div>
                 </motion.div>
                 
             
         }
 
+
         </>
+
 
 
     )

@@ -8,6 +8,7 @@ import { SolanaWallet } from "./SolanaWallet";
 import { EtheriumWallet } from "./EtheriumWallet";
 import {toast} from "sonner"
 import { RootState } from "../store/store";
+import { Footer } from "./Footer";
 export const Wallet =()=>{
     const [pageLoaded,setPageLoaded]= useState(false)
     const state = useSelector((state:RootState)=>state)
@@ -19,7 +20,7 @@ export const Wallet =()=>{
     },[])
     return(
         <>
-                <div className="w-[100vw] flex justify-center mt-20 bg-black">
+                <div className="w-[100vw] flex justify-center mt-20 bg-black ">
             {
                 pageLoaded &&
                 <motion.div initial={{ opacity: 0, y: -20 }}
@@ -31,7 +32,7 @@ export const Wallet =()=>{
 
           {
              state.wallet.isWalletSelected && state.wallet.chainType ==="Solana" ?
-             (<div className="h-screen">             <SolanaWallet/></div>)
+             (             <SolanaWallet/>)
              :
              state.wallet.isWalletSelected && state.wallet.chainType === "Etherium"?
              <EtheriumWallet/>
@@ -62,6 +63,10 @@ export const Wallet =()=>{
                     variant="primary"
                     size="md"
                 />
+                </div>
+                <div className="mt-80">
+                <Footer/>
+
                 </div>
      </div>
  

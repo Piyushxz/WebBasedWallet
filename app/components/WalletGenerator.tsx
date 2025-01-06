@@ -14,7 +14,7 @@ import { DeleteModal } from "./ui/PopoverModal";
 import {toast} from "sonner"
 import { CopyIcon } from "./ui/CopyIcon";
 import { RootState } from "../store/store";
-
+import { Footer } from "./Footer";
 interface KeyProps{
     privateKey:string,
     publicKey:string ,
@@ -200,10 +200,15 @@ export const WalletGenerator = () => {
                         }
 
                     </div>
+                    <div className="mt-10">
+                <Footer/>
+
+            </div>
                 </div>
 
 
             </motion.div>
+
         </div>
 
     );
