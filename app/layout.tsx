@@ -24,6 +24,7 @@ export default function RootLayout({
         className={`${manrope.className} `}
       >
         {children}
+        
       </body>
     </html>
   );
