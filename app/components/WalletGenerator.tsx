@@ -59,7 +59,8 @@ export const WalletGenerator = () => {
     }
 
     const handleDeletePair =(index:string)=>{
-        setKeys((prev)=>prev.filter(keys=>keys.index !== index))
+        setKeys((prev)=>prev.filter(keys=>keys.index !== index));
+        toast.success(`Wallet ${index} has been deleted.`)
     }
     useEffect(() => {
         let mn = generateMnemonic();
@@ -99,7 +100,7 @@ export const WalletGenerator = () => {
                          className="flex justify-between items-center p-4 mt-2 mr-2 hover:bg-[#191919] rounded-lg ease-in-out cursor-pointer">
                             <DownArrow />
                         </div>
-                        
+
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4 px-2 py-2">
@@ -132,7 +133,7 @@ export const WalletGenerator = () => {
 
                     <div className="w-full  mt-8 ">
                         <div className="flex justify-between gap-4">
-                            <h1 className="tracking-tighter text-3xl md:text-5xl font-black text-white font-black">
+                            <h1 className="tracking-tighter text-2xl md:text-5xl font-black text-white font-black">
                             {
                             //@ts-ignore
                             `Your ${state} Wallet,` 
@@ -141,6 +142,8 @@ export const WalletGenerator = () => {
                         <div className="flex gap-2">
                             <Button onClick={handleAddWallet}
                             text="Add Wallet" variant="primary" size="sm" />
+
+
                             <DeleteModal variant="all" onClick={()=>{
                                     setKeys([]);
                                     toast.info("All Wallets Deleted.")

@@ -44,7 +44,9 @@ export function DeleteModal(props: DeleteModalProps) {
           {props.variant==="all"?"This will delete all your wallets":"This wallet will be deleted permanently."}
           </DialogDescription>
         </DialogHeader>
-        <Button onClick={handleDelete} variant="delete" text="Delete All Wallets" size="md" />
+        {props.variant==="all"? <Button onClick={handleDelete} variant="delete" text="Delete All Wallets" size="md" />
+        :<Button onClick={handleDelete} variant="delete" text="Delete This Wallet" size="md"/>}
+
         <DialogFooter />
       </DialogContent>
     </Dialog>

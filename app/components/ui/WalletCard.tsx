@@ -2,6 +2,7 @@ import VisibleIcon from "./visibleIcon"
 import NotVisibleIcon from "./NotVisibleIcon"
 import { useState } from "react"
 import { DeleteIcon } from "./DeleteIcon";
+import {DeleteModal} from "./PopoverModal"
 import {toast} from "sonner"
 interface cardProps{
     index:string | number,
@@ -13,14 +14,13 @@ interface cardProps{
 
 export const WalletCard = (props: cardProps) => {
     const [isPrivateKeyVisible, setIsPrivateKeyVisible] = useState(false);
+
+    
     return (
         <div className="border border-white border-opacity-30 w-full flex flex-col mt-8 h-60">
             <div className="flex justify-between p-4 flex">
                 <h1 className="tracking-tighter text-2xl md:text-4xl font-black text-white">Wallet {props.index}</h1>
-                <div onClick={props.handleDeletePair}
-                className="p-2 hover:bg-[#191919] rounded-lg">
-                    <DeleteIcon/>
-                </div>
+                <DeleteModal variant='single' onClick={props.handleDeletePair} />
             </div>
             <div className="flex flex-col w-full bg-[#191919] h-[100vh]">
                 <div className="p-2 flex flex-col">
