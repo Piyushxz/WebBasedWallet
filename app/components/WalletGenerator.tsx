@@ -12,6 +12,7 @@ import bs58 from "bs58"
 import { Wallet,HDNodeWallet } from "ethers";
 import { DeleteModal } from "./ui/PopoverModal";
 import {toast} from "sonner"
+import { CopyIcon } from "./ui/CopyIcon";
 
 interface KeyProps{
     privateKey:any,
@@ -30,6 +31,13 @@ export const WalletGenerator = () => {
     //@ts-ignore
     const state = useSelector(state=>state.chainType)
 
+    const handleCopyMnemonic = ()=>{
+        
+            navigator.clipboard.writeText(mnemonic.join(" "));
+            toast.success("Mnemonic Copied To Clipboard")
+        
+    
+    }
 
     const generateSolanaPair = ()=>{
         const seed = mnemonicToSeed(mnemonic.join(" "));
@@ -96,10 +104,17 @@ export const WalletGenerator = () => {
                         <div className="tracking-tighter text-2xl md:text-4xl font-black text-white flex items-center p-4 mt-2">
                             Secret Phrase
                         </div>
+                        <div className="flex gap-2">
+                        <div onClick={handleCopyMnemonic}
+                         className="flex justify-between items-center p-4 mt-2 mr-2 hover:bg-[#191919] rounded-lg ease-in-out cursor-pointer">
+                            <CopyIcon />
+                        </div>
                         <div onClick={()=>setShowMnemonic(val=>!val)}
                          className="flex justify-between items-center p-4 mt-2 mr-2 hover:bg-[#191919] rounded-lg ease-in-out cursor-pointer">
                             <DownArrow />
                         </div>
+                        </div>
+
 
                         </div>
 
